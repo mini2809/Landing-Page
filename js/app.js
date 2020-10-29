@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function(event)
 		function respondToClick(evt)
 		{
 			let target= evt.target.id;
+		
 			let sec = document.getElementById('section'+target);
 			let navItems= document.getElementsByTagName('li');
 			let listitems=navItems[target-1];
@@ -66,14 +67,21 @@ document.addEventListener('DOMContentLoaded', function(event)
 		function respondToScroll(evt)
 		{
 			let arrayOfSections=Array.from(sections);
+		
 			for(let p=0; p<length; p++)
 			{
 				if(SectionInViewport(arrayOfSections[p]))
 				{
+					
 					arrayOfSections[p].classList.add('active');
+					
 					let SiblingArray = []
+					let SiblingArray1 = []
 					node = arrayOfSections[p].parentNode.firstElementChild;
-
+					let navItems= document.getElementsByTagName('li');
+					let listitems=navItems[p];
+					listitems.classList.add("activeLi");
+					node1=listitems.parentNode.firstElementChild;
 					while ( node ) 
 					{
 			    		if ( node !== arrayOfSections[p] ) 
@@ -81,7 +89,16 @@ document.addEventListener('DOMContentLoaded', function(event)
 			    		node = node.nextElementSibling ;
 			    		for(let x=1; x<SiblingArray.length; x++)
 			    		SiblingArray[x].classList.remove("active");
-		    		}
+					}
+					while ( node1 ) 
+				{
+		    		if ( node1 !== listitems ) 
+		      		SiblingArray1.push( node1 );
+		    		node1 = node1.nextElementSibling ;
+		    		for(let x=0; x<SiblingArray1.length; x++)
+		    		SiblingArray1[x].classList.remove("activeLi");
+	    		}
+			
 		    		
 				}
 			}
